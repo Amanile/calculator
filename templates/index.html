@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="gradient-bg text-white py-16">
+    <div class="container mx-auto px-4 text-center">
+        <h1 class="text-4xl md:text-6xl font-bold mb-6 animate-fade-in">
+            EPF Calculator
+        </h1>
+        <p class="text-xl md:text-2xl mb-8 opacity-90 animate-fade-in">
+            Plan your retirement with our comprehensive Employees' Provident Fund calculator
+        </p>
+        <a href="{{ url_for('epf_calculator') }}" 
+           class="inline-block bg-white text-primary px-8 py-4 rounded-lg font-semibold text-lg hover:bg-gray-100 transition duration-300 transform hover:scale-105 animate-fade-in">
+            Start Calculating
+        </a>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="py-16">
+    <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">Why Use Our EPF Calculator?</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="bg-white p-6 rounded-lg card-shadow hover:shadow-xl transition duration-300 animate-fade-in">
+                <div class="w-12 h-12 bg-primary rounded-lg flex items-center justify-center mb-4">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-semibold mb-3 text-gray-800">Accurate Calculations</h3>
+                <p class="text-gray-600">Get precise EPF maturity calculations based on current interest rates and contribution rules.</p>
+            </div>
+            
+            <div class="bg-white p-6 rounded-lg card-shadow hover:shadow-xl transition duration-300 animate-fade-in">
+                <div class="w-12 h-12 bg-primary rounded-lg flex items-center justify-center mb-4">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-semibold mb-3 text-gray-800">Visual Growth Charts</h3>
+                <p class="text-gray-600">See your EPF growth over time with interactive charts and year-wise breakdown.</p>
+            </div>
+            
+            <div class="bg-white p-6 rounded-lg card-shadow hover:shadow-xl transition duration-300 animate-fade-in">
+                <div class="w-12 h-12 bg-primary rounded-lg flex items-center justify-center mb-4">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-semibold mb-3 text-gray-800">Mobile Responsive</h3>
+                <p class="text-gray-600">Calculate your EPF on any device with our fully responsive design.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- How It Works Section -->
+<section class="bg-gray-100 py-16">
+    <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">How It Works</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div class="text-center animate-fade-in">
+                <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span class="text-white font-bold text-2xl">1</span>
+                </div>
+                <h3 class="text-lg font-semibold mb-2 text-gray-800">Enter Details</h3>
+                <p class="text-gray-600 text-sm">Input your salary, age, and EPF contribution details</p>
+            </div>
+            
+            <div class="text-center animate-fade-in">
+                <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span class="text-white font-bold text-2xl">2</span>
+                </div>
+                <h3 class="text-lg font-semibold mb-2 text-gray-800">Calculate</h3>
+                <p class="text-gray-600 text-sm">Our calculator processes your data using current EPF rules</p>
+            </div>
+            
+            <div class="text-center animate-fade-in">
+                <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span class="text-white font-bold text-2xl">3</span>
+                </div>
+                <h3 class="text-lg font-semibold mb-2 text-gray-800">View Results</h3>
+                <p class="text-gray-600 text-sm">See your maturity amount and year-wise breakdown</p>
+            </div>
+            
+            <div class="text-center animate-fade-in">
+                <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span class="text-white font-bold text-2xl">4</span>
+                </div>
+                <h3 class="text-lg font-semibold mb-2 text-gray-800">Plan Better</h3>
+                <p class="text-gray-600 text-sm">Make informed decisions about your retirement planning</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-16">
+    <div class="container mx-auto px-4 text-center">
+        <h2 class="text-3xl font-bold mb-6 text-gray-800">Ready to Plan Your Retirement?</h2>
+        <p class="text-xl text-gray-600 mb-8">Start calculating your EPF maturity amount today</p>
+        <a href="{{ url_for('epf_calculator') }}" 
+           class="inline-block bg-primary text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-secondary transition duration-300 transform hover:scale-105">
+            Calculate Now
+        </a>
+    </div>
+</section>
+{% endblock %} 

@@ -1,0 +1,737 @@
+{% extends "base.html" %}
+
+{% block title %}EPF Calculator - Calculate Your Provident Fund Maturity{% endblock %}
+
+{% block content %}
+<style>
+/* Custom Slider Styles */
+.slider-orange {
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    cursor: pointer;
+    height: 8px;
+    border-radius: 4px;
+    outline: none;
+}
+
+/* WebKit browsers (Chrome, Safari, Opera) */
+.slider-orange::-webkit-slider-track {
+    background: #e5e7eb;
+    height: 8px;
+    border-radius: 4px;
+    border: none;
+}
+
+.slider-orange::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 24px;
+    width: 24px;
+    border-radius: 50%;
+    background: #f97316;
+    cursor: pointer;
+    border: 3px solid white;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    margin-top: -8px;
+}
+
+/* Firefox */
+.slider-orange::-moz-range-track {
+    background: #e5e7eb;
+    height: 8px;
+    border-radius: 4px;
+    border: none;
+}
+
+.slider-orange::-moz-range-thumb {
+    height: 24px;
+    width: 24px;
+    border-radius: 50%;
+    background: #f97316;
+    cursor: pointer;
+    border: 3px solid white;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    border: none;
+}
+
+.slider-orange::-moz-range-progress {
+    background: #f97316;
+    height: 8px;
+    border-radius: 4px;
+}
+
+/* Internet Explorer */
+.slider-orange::-ms-track {
+    background: transparent;
+    border-color: transparent;
+    border-width: 8px 0;
+    color: transparent;
+    height: 8px;
+}
+
+.slider-orange::-ms-fill-lower {
+    background: #f97316;
+    border-radius: 4px;
+}
+
+.slider-orange::-ms-fill-upper {
+    background: #e5e7eb;
+    border-radius: 4px;
+}
+
+.slider-orange::-ms-thumb {
+    height: 24px;
+    width: 24px;
+    border-radius: 50%;
+    background: #f97316;
+    cursor: pointer;
+    border: 3px solid white;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    margin-top: 1px;
+}
+
+/* Result Cards */
+.result-card {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    border: 1px solid #f3f4f6;
+    text-align: center;
+}
+
+.result-value {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-top: 8px;
+    line-height: 1.2;
+}
+
+.result-label {
+    font-size: 0.95rem;
+    color: #6b7280;
+    font-weight: 500;
+    margin-bottom: 4px;
+}
+
+/* Input styling */
+.input-container {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-width: 140px;
+}
+
+.input-value {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #1e293b;
+    background: transparent;
+    border: none;
+    outline: none;
+    text-align: right;
+    width: 100%;
+}
+
+.input-unit {
+    color: #64748b;
+    font-size: 0.875rem;
+    margin-left: 8px;
+    font-weight: 500;
+}
+
+/* Toggle buttons */
+.toggle-container {
+    background: #e2e8f0;
+    border-radius: 8px;
+    padding: 4px;
+    display: flex;
+}
+
+.toggle-btn {
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
+    background: transparent;
+}
+
+.toggle-btn.active {
+    background: #f97316;
+    color: white;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.toggle-btn:not(.active) {
+    color: #64748b;
+}
+
+/* Chart container */
+.chart-container {
+    position: relative;
+    height: 250px;
+    margin: 20px 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+    .result-value {
+        font-size: 1.75rem;
+    }
+}
+</style>
+
+<!-- Calculator Header -->
+<section class="bg-white py-6 shadow-sm">
+    <div class="container mx-auto px-4">
+        <h1 class="text-3xl font-bold text-center text-gray-800 mb-2">EPF Calculator</h1>
+        <p class="text-center text-gray-600">Calculate your Employees' Provident Fund maturity amount</p>
+    </div>
+</section>
+
+<div class="container mx-auto px-4 py-8">
+    <div class="max-w-7xl mx-auto">
+        <div class="bg-white rounded-2xl shadow-lg p-8">
+            
+            <!-- Main Grid Layout -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                
+                <!-- Left Column - Input Controls -->
+                <div class="space-y-8">
+                    
+                    <!-- Monthly Salary Slider -->
+                    <div>
+                        <div class="flex justify-between items-center mb-4">
+                            <label class="text-lg font-medium text-gray-700">Monthly Salary (Basic + DA)</label>
+                            <div class="input-container">
+                                <span class="input-unit">₹</span>
+                                <input type="number" id="monthly_salary_input" value="50000" 
+                                       class="input-value" min="10000" max="500000" step="5000">
+                            </div>
+                        </div>
+                        <div class="relative">
+                            <input type="range" id="monthly_salary" min="10000" max="500000" value="50000" step="5000"
+                                   class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider-orange">
+                            <div class="flex justify-between text-sm text-gray-500 mt-3">
+                                <span>0</span>
+                                <span>1L</span>
+                                <span>2L</span>
+                                <span>3L</span>
+                                <span>4L</span>
+                                <span>5L</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Interest Rate Slider -->
+                    <div>
+                        <div class="flex justify-between items-center mb-4">
+                            <label class="text-lg font-medium text-gray-700">Interest Rate</label>
+                            <div class="input-container">
+                                <input type="number" id="interest_rate_input" value="8.25" step="0.25"
+                                       class="input-value" min="5" max="15">
+                                <span class="input-unit">%</span>
+                            </div>
+                        </div>
+                        <div class="relative">
+                            <input type="range" id="interest_rate" min="5" max="15" value="8.25" step="0.25"
+                                   class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider-orange">
+                            <div class="flex justify-between text-sm text-gray-500 mt-3">
+                                <span>5%</span>
+                                <span>7.5%</span>
+                                <span>10%</span>
+                                <span>12.5%</span>
+                                <span>15%</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Years to Retirement Slider -->
+                    <div>
+                        <div class="flex justify-between items-center mb-4">
+                            <label class="text-lg font-medium text-gray-700">Years to Retirement</label>
+                            <div class="flex items-center space-x-3">
+                                <div class="input-container">
+                                    <input type="number" id="years_input" value="30" 
+                                           class="input-value" min="5" max="40">
+                                    <span class="input-unit" id="years_unit">Yr</span>
+                                </div>
+                                <div class="toggle-container">
+                                    <button type="button" id="tenure-yr-btn" class="toggle-btn active">Yr</button>
+                                    <button type="button" id="tenure-mo-btn" class="toggle-btn">Mo</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="relative">
+                            <input type="range" id="years_to_retirement" min="5" max="40" value="30" step="1"
+                                   class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider-orange">
+                            <div class="flex justify-between text-sm text-gray-500 mt-3" id="years_labels">
+                                <span>5</span>
+                                <span>15</span>
+                                <span>25</span>
+                                <span>35</span>
+                                <span>40</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Additional Controls Row -->
+                    <div class="grid grid-cols-2 gap-6">
+                        
+                        <!-- Current Age -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-3">Current Age</label>
+                            <div class="input-container">
+                                <input type="number" id="current_age" value="30" 
+                                       class="input-value" min="18" max="58" readonly>
+                                <span class="input-unit">Years</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Annual Salary Increase -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-3">Annual Increase</label>
+                            <div class="input-container">
+                                <input type="number" id="annual_increase" value="5" step="0.5"
+                                       class="input-value" min="0" max="15">
+                                <span class="input-unit">%</span>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    
+                    <!-- EPF Contribution -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-3">EPF Contribution Rate</label>
+                        <div class="input-container">
+                            <input type="number" id="epf_contribution_rate" value="24" step="1"
+                                   class="input-value" min="12" max="36">
+                            <span class="input-unit">%</span>
+                        </div>
+                        <p class="text-xs text-gray-500 mt-2">Employee (12%) + Employer (12%) = 24%</p>
+                    </div>
+                    
+                </div>
+                
+                <!-- Right Column - Results -->
+                <div class="space-y-6">
+                    
+                    <!-- Main Results -->
+                    <div class="space-y-4">
+                        
+                        <!-- Final EPF Amount -->
+                        <div class="result-card">
+                            <div class="result-label">Final EPF Amount</div>
+                            <div class="result-value text-gray-800" id="final-epf-amount">₹ 28,63,818</div>
+                        </div>
+                        
+                        <!-- Total Interest -->
+                        <div class="result-card">
+                            <div class="result-label">Total Interest Earned</div>
+                            <div class="result-value text-gray-800" id="total-interest">₹ 1,90,70,995</div>
+                        </div>
+                        
+                        <!-- Total Payment -->
+                        <div class="result-card">
+                            <div class="result-label">Total Payment<br/>(Principal + Interest)</div>
+                            <div class="result-value text-gray-800" id="total-payment">₹ 2,86,38,187</div>
+                        </div>
+                        
+                    </div>
+                    
+                    <!-- Breakdown Chart -->
+                    <div class="result-card">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">Break-up of Total Payment</h3>
+                        <div class="chart-container">
+                            <canvas id="epf-breakdown-chart"></canvas>
+                        </div>
+                        
+                        <!-- Chart Legend -->
+                        <div class="grid grid-cols-2 gap-4 mt-4">
+                            <div class="flex items-center justify-center">
+                                <div class="w-4 h-4 bg-green-500 rounded-full mr-2"></div>
+                                <div class="text-center">
+                                    <div class="text-sm font-medium text-gray-700">Total Contribution</div>
+                                    <div class="text-sm text-gray-500" id="contribution-percentage">46.3%</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-center">
+                                <div class="w-4 h-4 bg-orange-500 rounded-full mr-2"></div>
+                                <div class="text-center">
+                                    <div class="text-sm font-medium text-gray-700">Total Interest</div>
+                                    <div class="text-sm text-gray-500" id="interest-percentage">53.7%</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                
+            </div>
+            
+            <!-- Year-wise Breakdown Table -->
+            <div class="mt-12">
+                <div class="bg-white rounded-lg border border-gray-200 overflow-hidden">
+                    <div class="px-6 py-4 bg-gray-50 border-b border-gray-200">
+                        <h3 class="text-lg font-semibold text-gray-800">Year-wise EPF Balance</h3>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-6 py-4 text-left font-semibold text-gray-700">Year</th>
+                                    <th class="px-6 py-4 text-right font-semibold text-gray-700">Age</th>
+                                    <th class="px-6 py-4 text-right font-semibold text-gray-700">Annual Contribution</th>
+                                    <th class="px-6 py-4 text-right font-semibold text-gray-700">Interest Earned</th>
+                                    <th class="px-6 py-4 text-right font-semibold text-gray-700">EPF Balance</th>
+                                </tr>
+                            </thead>
+                            <tbody id="yearly-breakdown-table">
+                                <!-- Dynamic content -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+<script>
+let epfChart = null;
+let isMonthMode = false;
+
+// Format currency for display
+function formatCurrency(amount) {
+    if (amount >= 10000000) {
+        return '₹ ' + (amount / 10000000).toFixed(2).replace(/\.00$/, '') + ' Cr';
+    } else if (amount >= 100000) {
+        return '₹ ' + (amount / 100000).toFixed(2).replace(/\.00$/, '') + ' L';
+    } else if (amount >= 1000) {
+        return '₹ ' + (amount / 1000).toFixed(0) + ' K';
+    } else {
+        return '₹ ' + Math.round(amount).toLocaleString('en-IN');
+    }
+}
+
+function formatFullCurrency(amount) {
+    return new Intl.NumberFormat('en-IN', {
+        style: 'currency',
+        currency: 'INR',
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0
+    }).format(amount);
+}
+
+// Calculate EPF
+function calculateEPF() {
+    const monthlySalary = parseFloat(document.getElementById('monthly_salary').value);
+    const interestRate = parseFloat(document.getElementById('interest_rate').value) / 100;
+    const yearsValue = parseFloat(document.getElementById('years_to_retirement').value);
+    const yearsToRetirement = isMonthMode ? yearsValue / 12 : yearsValue;
+    const annualIncrease = parseFloat(document.getElementById('annual_increase').value) / 100;
+    const epfContribution = parseFloat(document.getElementById('epf_contribution_rate').value) / 100;
+    
+    // Update current age
+    const retirementAge = 60;
+    const currentAge = Math.round(retirementAge - yearsToRetirement);
+    document.getElementById('current_age').value = currentAge;
+    
+    let currentSalary = monthlySalary;
+    let epfBalance = 0;
+    let totalContribution = 0;
+    let totalInterest = 0;
+    let yearlyData = [];
+    
+    const years = Math.ceil(yearsToRetirement);
+    
+    for (let year = 1; year <= years; year++) {
+        const yearlyContribution = currentSalary * 12 * epfContribution;
+        const interestEarned = epfBalance * interestRate;
+        
+        epfBalance += yearlyContribution + interestEarned;
+        totalContribution += yearlyContribution;
+        totalInterest += interestEarned;
+        
+        yearlyData.push({
+            year: year,
+            age: currentAge + year,
+            contribution: yearlyContribution,
+            interest: interestEarned,
+            balance: epfBalance
+        });
+        
+        currentSalary *= (1 + annualIncrease);
+    }
+    
+    const finalAmount = epfBalance;
+    const totalPayment = totalContribution + totalInterest;
+    
+    // Update display
+    document.getElementById('final-epf-amount').textContent = formatCurrency(finalAmount);
+    document.getElementById('total-interest').textContent = formatCurrency(totalInterest);
+    document.getElementById('total-payment').textContent = formatCurrency(totalPayment);
+    
+    // Update percentages
+    const contributionPercentage = ((totalContribution / totalPayment) * 100).toFixed(1);
+    const interestPercentage = ((totalInterest / totalPayment) * 100).toFixed(1);
+    
+    document.getElementById('contribution-percentage').textContent = contributionPercentage + '%';
+    document.getElementById('interest-percentage').textContent = interestPercentage + '%';
+    
+    // Update chart
+    updateChart(totalContribution, totalInterest);
+    
+    // Update table
+    updateTable(yearlyData);
+}
+
+// Update pie chart
+function updateChart(contribution, interest) {
+    const ctx = document.getElementById('epf-breakdown-chart').getContext('2d');
+    
+    if (epfChart) {
+        epfChart.destroy();
+    }
+    
+    const total = contribution + interest;
+    
+    epfChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            datasets: [{
+                data: [contribution, interest],
+                backgroundColor: ['#22c55e', '#f97316'],
+                borderWidth: 0,
+                cutout: '65%'
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            const label = context.dataIndex === 0 ? 'Total Contribution' : 'Total Interest';
+                            const value = context.parsed;
+                            const percentage = ((value / total) * 100).toFixed(1);
+                            return label + ': ' + formatFullCurrency(value) + ' (' + percentage + '%)';
+                        }
+                    }
+                }
+            }
+        }
+    });
+}
+
+// Update table
+function updateTable(yearlyData) {
+    const tableBody = document.getElementById('yearly-breakdown-table');
+    tableBody.innerHTML = '';
+    
+    // Show first 5 and last 5 years
+    const dataToShow = [];
+    if (yearlyData.length <= 10) {
+        dataToShow.push(...yearlyData);
+    } else {
+        dataToShow.push(...yearlyData.slice(0, 5));
+        dataToShow.push({ separator: true, hiddenCount: yearlyData.length - 10 });
+        dataToShow.push(...yearlyData.slice(-5));
+    }
+    
+    dataToShow.forEach((data, index) => {
+        const row = document.createElement('tr');
+        
+        if (data.separator) {
+            row.innerHTML = `
+                <td colspan="5" class="px-6 py-4 text-center text-gray-500 italic bg-gray-50">
+                    ... ${data.hiddenCount} more years ...
+                </td>
+            `;
+        } else {
+            row.className = index % 2 === 0 ? 'bg-white hover:bg-gray-50' : 'bg-gray-50 hover:bg-gray-100';
+            row.innerHTML = `
+                <td class="px-6 py-4 text-gray-900 font-medium">${data.year}</td>
+                <td class="px-6 py-4 text-right text-gray-900">${data.age}</td>
+                <td class="px-6 py-4 text-right text-gray-900">${formatFullCurrency(data.contribution)}</td>
+                <td class="px-6 py-4 text-right text-gray-900">${formatFullCurrency(data.interest)}</td>
+                <td class="px-6 py-4 text-right text-gray-900 font-semibold">${formatFullCurrency(data.balance)}</td>
+            `;
+        }
+        
+        tableBody.appendChild(row);
+    });
+}
+
+// Sync all inputs
+function syncInputs() {
+    // Monthly Salary
+    const monthlySalary = document.getElementById('monthly_salary');
+    const monthlySalaryInput = document.getElementById('monthly_salary_input');
+    
+    monthlySalary.addEventListener('input', function() {
+        monthlySalaryInput.value = this.value;
+        updateSliderProgress(this);
+        calculateEPF();
+    });
+    
+    monthlySalaryInput.addEventListener('input', function() {
+        monthlySalary.value = this.value;
+        updateSliderProgress(monthlySalary);
+        calculateEPF();
+    });
+    
+    // Interest Rate
+    const interestRate = document.getElementById('interest_rate');
+    const interestRateInput = document.getElementById('interest_rate_input');
+    
+    interestRate.addEventListener('input', function() {
+        interestRateInput.value = this.value;
+        updateSliderProgress(this);
+        calculateEPF();
+    });
+    
+    interestRateInput.addEventListener('input', function() {
+        interestRate.value = this.value;
+        updateSliderProgress(interestRate);
+        calculateEPF();
+    });
+    
+    // Years to Retirement
+    const yearsSlider = document.getElementById('years_to_retirement');
+    const yearsInput = document.getElementById('years_input');
+    
+    yearsSlider.addEventListener('input', function() {
+        yearsInput.value = this.value;
+        updateSliderProgress(this);
+        calculateEPF();
+    });
+    
+    yearsInput.addEventListener('input', function() {
+        yearsSlider.value = this.value;
+        updateSliderProgress(yearsSlider);
+        calculateEPF();
+    });
+    
+    // Other inputs
+    ['annual_increase', 'epf_contribution_rate'].forEach(id => {
+        document.getElementById(id).addEventListener('input', calculateEPF);
+    });
+}
+
+// Setup tenure toggle
+function setupTenureToggle() {
+    const yrBtn = document.getElementById('tenure-yr-btn');
+    const moBtn = document.getElementById('tenure-mo-btn');
+    const slider = document.getElementById('years_to_retirement');
+    const input = document.getElementById('years_input');
+    const unit = document.getElementById('years_unit');
+    const labels = document.getElementById('years_labels');
+    
+    yrBtn.addEventListener('click', function() {
+        if (isMonthMode) {
+            // Convert months to years
+            const currentValue = parseInt(slider.value);
+            const yearValue = Math.round(currentValue / 12);
+            
+            slider.min = "5";
+            slider.max = "40";
+            slider.value = yearValue;
+            input.value = yearValue;
+            unit.textContent = "Yr";
+            
+            labels.innerHTML = `
+                <span>5</span>
+                <span>15</span>
+                <span>25</span>
+                <span>35</span>
+                <span>40</span>
+            `;
+            
+            updateSliderProgress(slider);
+            isMonthMode = false;
+        }
+        
+        yrBtn.classList.add('active');
+        moBtn.classList.remove('active');
+        calculateEPF();
+    });
+    
+    moBtn.addEventListener('click', function() {
+        if (!isMonthMode) {
+            // Convert years to months
+            const currentValue = parseInt(slider.value);
+            const monthValue = currentValue * 12;
+            
+            slider.min = "60";  // 5 years
+            slider.max = "480"; // 40 years
+            slider.value = monthValue;
+            input.value = monthValue;
+            unit.textContent = "Mo";
+            
+            labels.innerHTML = `
+                <span>60</span>
+                <span>180</span>
+                <span>300</span>
+                <span>420</span>
+                <span>480</span>
+            `;
+            
+            updateSliderProgress(slider);
+            isMonthMode = true;
+        }
+        
+        moBtn.classList.add('active');
+        yrBtn.classList.remove('active');
+        calculateEPF();
+    });
+}
+
+// Update slider progress color for Chrome/Opera
+function updateSliderProgress(slider) {
+    const min = parseFloat(slider.min);
+    const max = parseFloat(slider.max);
+    const val = parseFloat(slider.value);
+    const percentage = ((val - min) / (max - min)) * 100;
+    
+    // For WebKit browsers (Chrome, Safari, Opera)
+    const isWebKit = /webkit/i.test(navigator.userAgent);
+    if (isWebKit) {
+        slider.style.background = `linear-gradient(to right, #f97316 0%, #f97316 ${percentage}%, #e5e7eb ${percentage}%, #e5e7eb 100%)`;
+    }
+}
+
+// Update all sliders on load and input
+function updateAllSliders() {
+    const sliders = document.querySelectorAll('.slider-orange');
+    sliders.forEach(slider => {
+        updateSliderProgress(slider);
+        
+        slider.addEventListener('input', function() {
+            updateSliderProgress(this);
+        });
+    });
+}
+
+// Initialize
+document.addEventListener('DOMContentLoaded', function() {
+    syncInputs();
+    setupTenureToggle();
+    updateAllSliders(); // Add this to initialize slider progress
+    calculateEPF();
+});
+</script>
+{% endblock %} 

@@ -1,0 +1,178 @@
+{% extends "base.html" %}
+
+{% block title %}About - EPF Calculator{% endblock %}
+
+{% block content %}
+<!-- About Header -->
+<section class="bg-white py-8 shadow-sm">
+    <div class="container mx-auto px-4">
+        <h1 class="text-3xl font-bold text-center text-gray-800 mb-2">About EPF Calculator</h1>
+        <p class="text-center text-gray-600">Understanding your Employees' Provident Fund</p>
+    </div>
+</section>
+
+<div class="container mx-auto px-4 py-8">
+    <div class="max-w-4xl mx-auto">
+        
+        <!-- What is EPF Section -->
+        <div class="bg-white rounded-lg card-shadow p-8 mb-8 animate-fade-in">
+            <h2 class="text-2xl font-bold mb-4 text-gray-800">What is EPF?</h2>
+            <p class="text-gray-600 mb-4">
+                The Employees' Provident Fund (EPF) is a retirement benefits scheme managed by the 
+                Employees' Provident Fund Organisation (EPFO) under the Ministry of Labour and Employment, 
+                Government of India. It is a social security scheme that provides financial security to 
+                employees after retirement.
+            </p>
+            <p class="text-gray-600">
+                Under this scheme, both the employee and employer contribute 12% of the employee's basic 
+                salary and dearness allowance (DA) to the EPF account. The accumulated amount earns interest 
+                and can be withdrawn upon retirement, resignation, or in case of emergency.
+            </p>
+        </div>
+        
+        <!-- How EPF Works -->
+        <div class="bg-white rounded-lg card-shadow p-8 mb-8 animate-fade-in">
+            <h2 class="text-2xl font-bold mb-4 text-gray-800">How EPF Works</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <h3 class="text-lg font-semibold mb-3 text-primary">Employee Contribution</h3>
+                    <ul class="text-gray-600 space-y-2">
+                        <li>• 12% of basic salary + DA</li>
+                        <li>• Deducted from monthly salary</li>
+                        <li>• Goes into EPF account</li>
+                        <li>• Earns interest annually</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-3 text-primary">Employer Contribution</h3>
+                    <ul class="text-gray-600 space-y-2">
+                        <li>• 12% of basic salary + DA</li>
+                        <li>• 3.67% goes to EPF account</li>
+                        <li>• 8.33% goes to EPS (Pension Scheme)</li>
+                        <li>• Additional administrative charges</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Current Interest Rate -->
+        <div class="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg p-8 mb-8 animate-fade-in">
+            <h2 class="text-2xl font-bold mb-4 text-gray-800">Current EPF Interest Rate</h2>
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-gray-600 mb-2">
+                        The current EPF interest rate for FY 2023-24 is:
+                    </p>
+                    <p class="text-3xl font-bold text-primary">8.25% per annum</p>
+                </div>
+                <div class="hidden md:block">
+                    <div class="w-20 h-20 bg-primary rounded-full flex items-center justify-center">
+                        <span class="text-white font-bold text-2xl">₹</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Benefits -->
+        <div class="bg-white rounded-lg card-shadow p-8 mb-8 animate-fade-in">
+            <h2 class="text-2xl font-bold mb-6 text-gray-800">Benefits of EPF</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="flex items-start space-x-3">
+                    <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+                        <svg class="w-4 h-4 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-gray-800 mb-1">Tax Benefits</h3>
+                        <p class="text-gray-600 text-sm">Contributions are tax-deductible under Section 80C</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-start space-x-3">
+                    <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+                        <svg class="w-4 h-4 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-gray-800 mb-1">Compound Interest</h3>
+                        <p class="text-gray-600 text-sm">Interest is compounded annually on the accumulated amount</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-start space-x-3">
+                    <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+                        <svg class="w-4 h-4 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-gray-800 mb-1">Partial Withdrawal</h3>
+                        <p class="text-gray-600 text-sm">Can withdraw for specific purposes like home loan, medical emergency</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-start space-x-3">
+                    <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+                        <svg class="w-4 h-4 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-gray-800 mb-1">Nomination Facility</h3>
+                        <p class="text-gray-600 text-sm">Can nominate family members for EPF benefits</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Calculator Features -->
+        <div class="bg-white rounded-lg card-shadow p-8 mb-8 animate-fade-in">
+            <h2 class="text-2xl font-bold mb-6 text-gray-800">Our Calculator Features</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-2">Accurate Calculations</h3>
+                    <p class="text-gray-600 text-sm">Based on current EPF rules and interest rates</p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-2">Visual Charts</h3>
+                    <p class="text-gray-600 text-sm">Interactive charts showing growth over time</p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-2">Mobile Friendly</h3>
+                    <p class="text-gray-600 text-sm">Responsive design works on all devices</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Disclaimer -->
+        <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-6 animate-fade-in">
+            <h2 class="text-lg font-semibold mb-3 text-yellow-800">Important Disclaimer</h2>
+            <p class="text-yellow-700 text-sm">
+                This calculator provides estimated calculations based on the inputs provided and current EPF rules. 
+                Actual EPF returns may vary due to changes in interest rates, government policies, and individual 
+                circumstances. Please consult with financial advisors or EPFO officials for personalized advice 
+                and accurate information about your EPF account.
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %} 
