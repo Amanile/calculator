@@ -98,5 +98,8 @@ def calculate_epf():
             'error': str(e)
         }), 400
 
+# For Vercel deployment
+app.debug = False
+
 if __name__ == '__main__':
     app.run(debug=True) 

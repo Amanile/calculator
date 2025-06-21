@@ -172,6 +172,26 @@ python app.py
 
 This project is open source and available under the [MIT License](LICENSE).
 
+## 🚀 Deployment
+
+Ready to share your EPF Calculator with the world? This project is configured for easy deployment to popular platforms.
+
+### 🎯 Recommended: Vercel (FREE & INSTANT)
+- ⚡ **Instant Deployment**: 1-click deploy from GitHub
+- 🌍 **Global CDN**: Lightning-fast worldwide
+- 🔒 **Automatic HTTPS**: Secure by default
+- 📊 **Real-time Analytics**: Built-in monitoring
+
+**👉 [Deploy to Vercel](https://vercel.com/new)** - See [VERCEL_DEPLOYMENT_GUIDE.md](VERCEL_DEPLOYMENT_GUIDE.md) for detailed instructions.
+
+### Other Deployment Options:
+- **GitHub Pages**: For static hosting  
+- **Herokuapp**: For full-stack hosting
+- **Netlify**: For JAMstack deployment
+- **AWS**: For scalable cloud hosting
+
+For GitHub setup, see [GITHUB_UPLOAD_GUIDE.md](GITHUB_UPLOAD_GUIDE.md)
+
 ## ⚠️ Disclaimer
 
 This calculator provides estimated calculations based on the inputs provided and current EPF rules. Actual EPF returns may vary due to changes in interest rates, government policies, and individual circumstances. Please consult with financial advisors or EPFO officials for personalized advice and accurate information about your EPF account.
