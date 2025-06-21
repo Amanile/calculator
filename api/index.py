@@ -44,6 +44,26 @@ def calculate_epf():
             retirement_age=retirement_age
         )
         
+        # Add year-wise data for bar chart
+        result['yearly_data'] = []
+        current_salary = monthly_salary
+        epf_balance = 0
+        
+        for year in range(1, retirement_age - current_age + 1):
+            yearly_contribution = current_salary * 12 * (epf_contribution / 100)
+            interest_earned = epf_balance * (interest_rate / 100)
+            epf_balance += yearly_contribution + interest_earned
+            
+            result['yearly_data'].append({
+                'year': year,
+                'age': current_age + year,
+                'contribution': yearly_contribution,
+                'interest': interest_earned,
+                'balance': epf_balance
+            })
+            
+            current_salary *= (1 + annual_increase / 100)
+        
         return jsonify(result)
     
     except Exception as e:
